@@ -247,6 +247,31 @@ function fetchAnimals(e) {
   var zip = document.querySelector('#zip').value;
   console.log(animal);
   console.log(zip); //Fetch Pets
+
+  (0, _fetchJsonp.default)("http://api.petfinder.com/pet.find?format=json&key=cb86975c4b73c8fad7b22c23e73baf82&animal=".concat(animal, "&location=").concat(zip, "&callback=callback"), {
+    jsonpCallbackFunction: 'callback'
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    return showAnimals(data.petfinder.pets.pet);
+  }).catch(function (err) {
+    return console.log(err);
+  });
+} // Shows the listing of animals
+
+
+function showAnimals(pets) {
+  var results = document.querySelector('#results'); // clear the previous submit to do another api call
+
+  results.innerHTML = ''; // Loop through the pets
+
+  pets.forEach(function (pet) {
+    var div = document.createElement('div'); // To add a class to the div
+
+    div.classList.add('card', 'card-body', 'mb-3');
+    div.innerHTML = " <div class =\"row\">\n                        <div class=\"col-sm-6\">\n                        <h4>".concat(pet.name.$t, "(").concat(pet.age.$t, ")</h4>\n\n                        </div>\n\n                        <div class=\"col-sm-6\">\n                        </div>\n                       </div>");
+    results.appendChild(div);
+  });
 }
 },{"fetch-jsonp":"node_modules/fetch-jsonp/build/fetch-jsonp.js"}],"../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
