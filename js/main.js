@@ -1,4 +1,6 @@
 import fetchJsonp from 'fetch-jsonp';
+import{isValidZip} from './validate';
+import{showAlert} from './validate';
 
 
 const petForm = document.querySelector('#pet-form');
@@ -13,11 +15,19 @@ function fetchAnimals(e) {
   const animal = document.querySelector('#animal').value;
  const zip = document.querySelector('#zip').value;
 
+ // validate the zip
+
+ if(!isValidZip(zip)){
+     showAlert('please enter a valid zipcode','danger');
+     return
+ }
+
+
  console.log(animal);
  console.log(zip);
 
  //Fetch Pets
-
+ 
  fetchJsonp(`http://api.petfinder.com/pet.find?format=json&key=cb86975c4b73c8fad7b22c23e73baf82&animal=${animal}&location=${zip}&callback=callback`,{
      jsonpCallbackFunction:'callback'
  })
@@ -52,11 +62,14 @@ function showAnimals(pets){
                           ${
                               pet.contact.phone.$t ?`<li class="list-group-item">Phone: ${pet.contact.phone.$t} </li>`:``
                           }
+                         <li class="list-group-item"> Shelter Id: ${pet.shelterId.$t} </li>
                          </ul>
 
+                         <p class="mt-2">${pet.description.$t} </p>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 text-center">
+                           <img class="img-fluid rounded-circle mt-2" src ="${pet.media.photos.photo[3].$t}">
                         </div>
                        </div>`;
 
