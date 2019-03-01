@@ -38,12 +38,21 @@ function showAnimals(pets){
     results.innerHTML =('');
 // Loop through the pets
   pets.forEach((pet) =>{
+     console.log(pet);
       const div = document.createElement('div');
       // To add a class to the div
       div.classList.add('card','card-body','mb-3');
       div.innerHTML =` <div class ="row">
                         <div class="col-sm-6">
                         <h4>${pet.name.$t}(${pet.age.$t})</h4>
+                         ${pet.breeds.breed.$t ? `<p class="text-secondary"> ${pet.breeds.breed.$t} </p>` :`Unknown Breed`}
+                         <p> ${pet.contact.city.$t} || ${pet.contact.state.$t} || ${pet.contact.zip.$t} </p>
+                         
+                         <ul class="list-group">
+                          ${
+                              pet.contact.phone.$t ?`<li class="list-group-item">Phone: ${pet.contact.phone.$t} </li>`:``
+                          }
+                         </ul>
 
                         </div>
 

@@ -266,10 +266,11 @@ function showAnimals(pets) {
   results.innerHTML = ''; // Loop through the pets
 
   pets.forEach(function (pet) {
+    console.log(pet);
     var div = document.createElement('div'); // To add a class to the div
 
     div.classList.add('card', 'card-body', 'mb-3');
-    div.innerHTML = " <div class =\"row\">\n                        <div class=\"col-sm-6\">\n                        <h4>".concat(pet.name.$t, "(").concat(pet.age.$t, ")</h4>\n\n                        </div>\n\n                        <div class=\"col-sm-6\">\n                        </div>\n                       </div>");
+    div.innerHTML = " <div class =\"row\">\n                        <div class=\"col-sm-6\">\n                        <h4>".concat(pet.name.$t, "(").concat(pet.age.$t, ")</h4>\n                         ").concat(pet.breeds.breed.$t ? "<p class=\"text-secondary\"> ".concat(pet.breeds.breed.$t, " </p>") : "Unknown Breed", "\n                         <p> ").concat(pet.contact.city.$t, " || ").concat(pet.contact.state.$t, " || ").concat(pet.contact.zip.$t, " </p>\n                         \n                         <ul class=\"list-group\">\n                          ").concat(pet.contact.phone.$t ? "<li class=\"list-group-item\">Phone: ".concat(pet.contact.phone.$t, " </li>") : "", "\n                         </ul>\n\n                        </div>\n\n                        <div class=\"col-sm-6\">\n                        </div>\n                       </div>");
     results.appendChild(div);
   });
 }
